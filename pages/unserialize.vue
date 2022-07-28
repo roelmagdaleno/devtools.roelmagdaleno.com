@@ -46,9 +46,7 @@
 </template>
 
 <script setup>
-useHead({
-	title: 'Unserialize'
-});
+useHead({ title: 'Unserialize' });
 
 const serializedInput = ref('a:2:{i:0;s:12:"Sample array";i:1;a:2:{i:0;s:5:"Apple";i:1;s:6:"Orange";}}');
 const selectedOutputMethod = ref('json');

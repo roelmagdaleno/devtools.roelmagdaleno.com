@@ -2,12 +2,6 @@
 	<h1>Homepage</h1>
 </template>
 
-<script>
-export default {
-	name: "index"
-}
+<script setup>
+useHead({ title: 'Dashboard' });
 </script>
-
-<style scoped>
-
-</style>

@@ -59,10 +59,10 @@
 						<img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg" alt="Workflow" />
 					</div>
 					<nav class="mt-5 flex-1 px-2 space-y-1">
-						<a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'group flex items-center px-2 py-2 text-sm font-medium rounded-md']">
+						<NuxtLink v-for="item in navigation" :key="item.name" :to="item.href" :class="['text-gray-300 hover:bg-gray-700 hover:text-white', 'group flex items-center px-2 py-2 text-sm font-medium rounded-md']">
 							<component :is="item.icon" :class="[item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300', 'mr-3 flex-shrink-0 h-6 w-6']" aria-hidden="true" />
 							{{ item.name }}
-						</a>
+						</NuxtLink>
 					</nav>
 				</div>
 			</div>
@@ -77,7 +77,7 @@
 			<main class="flex-1">
 				<div class="py-6">
 					<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-						<h1 class="text-2xl font-semibold text-gray-900">{{ title }}</h1>
+						<h1 class="text-2xl font-semibold text-gray-900">{{ h1Title }}</h1>
 					</div>
 					<div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
 						<div class="py-4">
@@ -100,16 +100,24 @@ import {
 } from '@heroicons/vue/outline';
 
 const sidebarOpen = ref(false);
-const title = ref('Dashboard');
+const h1Title = ref('Dashboard');
 const navigation = [
-	{ name: 'Dashboard', href: '/', icon: HomeIcon, current: false },
-	{ name: 'Unserialize', href: '/unserialize', icon: DocumentTextIcon, current: true },
+	{ name: 'Dashboard', href: '/', icon: HomeIcon },
+	{ name: 'Unserialize', href: '/unserialize', icon: DocumentTextIcon },
 ];
 
 useHead({
 	titleTemplate: (titleChunk) => {
+		h1Title.value = titleChunk;
+
 		const title = 'Tools by Roel Magdaleno';
 		return titleChunk ? `${titleChunk} - ${title}` : `${title}`;
 	}
 });
 </script>
+
+<style scoped>
+.router-link-active {
+	@apply bg-gray-900 text-white;
+}
+</style>
