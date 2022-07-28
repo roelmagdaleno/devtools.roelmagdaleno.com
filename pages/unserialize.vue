@@ -14,7 +14,7 @@
 					name="serialized-input"
 					id="serialized-input"
 					v-model.trim="serializedInput"
-					class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+					class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md textarea-code"
 					autofocus
 				/>
 			</div>
@@ -23,11 +23,11 @@
 			<div class="mr-8">
 				<button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Unserialize</button>
 			</div>
-			<div>
-				<label class="text-base font-medium text-gray-900">Output</label>
+			<div class="flex items-center">
+				<label class="text-base font-medium text-gray-900 mr-4">Output:</label>
 				<fieldset>
 					<legend class="sr-only">Output method</legend>
-					<div class="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
+					<div class="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-5">
 						<div
 							v-for="outputMethod in outputMethods"
 							:key="outputMethod.id"
@@ -43,6 +43,9 @@
 			</div>
 		</div>
 	</form>
+	<div class="mt-8" v-if="showOutput">
+		<h2 class="text-xl font-medium">Output</h2>
+	</div>
 </template>
 
 <script setup>
@@ -50,9 +53,11 @@ useHead({ title: 'Unserialize' });
 
 const serializedInput = ref('a:2:{i:0;s:12:"Sample array";i:1;a:2:{i:0;s:5:"Apple";i:1;s:6:"Orange";}}');
 const selectedOutputMethod = ref('json');
+const showOutput = ref(false);
 const outputMethods = [
 	{ id: 'json', title: 'JSON' },
 	{ id: 'print_r', title: 'print_r' },
+	{ id: 'var_dump', title: 'var_dump' },
 ];
 
 function unserialize() {

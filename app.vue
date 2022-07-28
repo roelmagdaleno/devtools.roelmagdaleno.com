@@ -55,8 +55,9 @@
 			<!-- Sidebar component, swap this element with another sidebar if you like -->
 			<div class="flex-1 flex flex-col min-h-0 bg-gray-800">
 				<div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-					<div class="flex items-center flex-shrink-0 px-4">
-						<img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg" alt="Workflow" />
+					<div class="px-4">
+						<span class="inline-block items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-blue-100 text-blue-800 font-bold">DevTools</span>
+						<span class="block font-bold text-white text-xl">by Roel Magdaleno</span>
 					</div>
 					<nav class="mt-5 flex-1 px-2 space-y-1">
 						<NuxtLink v-for="item in navigation" :key="item.name" :to="item.href" :class="['text-gray-300 hover:bg-gray-700 hover:text-white', 'group flex items-center px-2 py-2 text-sm font-medium rounded-md']">
@@ -93,6 +94,7 @@
 <script setup>
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue';
 import {
+	CodeIcon,
 	DocumentTextIcon,
 	HomeIcon,
 	MenuIcon,
@@ -104,13 +106,14 @@ const h1Title = ref('Dashboard');
 const navigation = [
 	{ name: 'Dashboard', href: '/', icon: HomeIcon },
 	{ name: 'Unserialize', href: '/unserialize', icon: DocumentTextIcon },
+	{ name: 'Syntax Highlighting', href: '/syntax-highlighting', icon: CodeIcon },
 ];
 
 useHead({
 	titleTemplate: (titleChunk) => {
 		h1Title.value = titleChunk;
 
-		const title = 'Tools by Roel Magdaleno';
+		const title = 'DevTools by Roel Magdaleno';
 		return titleChunk ? `${titleChunk} - ${title}` : `${title}`;
 	}
 });
