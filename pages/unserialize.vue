@@ -1,50 +1,55 @@
 <template>
-	<form method="POST" @submit.prevent="unserialize">
-		<div>
-			<label
-				for="serialized-input"
-				class="block text-sm font-medium text-gray-700"
-			>
-				Serialized Input
-			</label>
+	<div>
+		<form method="POST" @submit.prevent="unserialize">
+			<div>
+				<label
+					for="serialized-input"
+					class="block text-sm font-medium text-gray-700"
+				>
+					Serialized Input
+				</label>
 
-			<div class="mt-1">
-				<textarea
-					rows="10"
-					name="serialized-input"
-					id="serialized-input"
-					v-model.trim="serializedInput"
-					class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md textarea-code"
-					autofocus
-				/>
+				<div class="mt-1">
+					<textarea
+						rows="10"
+						name="serialized-input"
+						id="serialized-input"
+						v-model.trim="serializedInput"
+						class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md textarea-code"
+						autofocus
+					/>
+				</div>
 			</div>
-		</div>
-		<div class="mt-4 flex items-center">
-			<div class="mr-8">
-				<button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Unserialize</button>
-			</div>
-			<div class="flex items-center">
-				<label class="text-base font-medium text-gray-900 mr-4">Output:</label>
-				<fieldset>
-					<legend class="sr-only">Output method</legend>
-					<div class="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-5">
-						<div
-							v-for="outputMethod in outputMethods"
-							:key="outputMethod.id"
-							class="flex items-center"
-						>
-							<label :for="outputMethod.id" class="flex items-center text-sm font-medium text-gray-700">
-								<input :id="outputMethod.id" name="output-method" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 mr-2" v-model="selectedOutputMethod" :value="outputMethod.id" />
-								<span>{{ outputMethod.title }}</span>
-							</label>
+			<div class="mt-4 flex items-center">
+				<div class="mr-8">
+					<button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Unserialize</button>
+				</div>
+				<div class="flex items-center">
+					<label class="text-base font-medium text-gray-900 mr-4">Output:</label>
+					<fieldset>
+						<legend class="sr-only">Output method</legend>
+						<div class="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-5">
+							<div
+								v-for="outputMethod in outputMethods"
+								:key="outputMethod.id"
+								class="flex items-center"
+							>
+								<label :for="outputMethod.id" class="flex items-center text-sm font-medium text-gray-700">
+									<input :id="outputMethod.id" name="output-method" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 mr-2" v-model="selectedOutputMethod" :value="outputMethod.id" />
+									<span>{{ outputMethod.title }}</span>
+								</label>
+							</div>
 						</div>
-					</div>
-				</fieldset>
+					</fieldset>
+				</div>
 			</div>
+		</form>
+		<div class="mt-8" v-if="showOutput">
+			<h2 class="text-xl font-medium">Output</h2>
+			<CodeBlock :syntaxHighlighted="syntaxHighlighted" />
 		</div>
-	</form>
-	<div class="mt-8" v-if="showOutput">
-		<h2 class="text-xl font-medium">Output</h2>
+
+		<Alert alert="error" :message="errorMessage" class="mt-4" v-if="errorMessage"></Alert>
 	</div>
 </template>
 
@@ -54,13 +59,31 @@ useHead({ title: 'Unserialize' });
 const serializedInput = ref('a:2:{i:0;s:12:"Sample array";i:1;a:2:{i:0;s:5:"Apple";i:1;s:6:"Orange";}}');
 const selectedOutputMethod = ref('json');
 const showOutput = ref(false);
+const errorMessage = ref(false);
+const syntaxHighlighted = ref('');
 const outputMethods = [
 	{ id: 'json', title: 'JSON' },
-	{ id: 'print_r', title: 'print_r' },
-	{ id: 'var_dump', title: 'var_dump' },
+	{ id: 'array', title: 'Array' },
 ];
 
-function unserialize() {
-	console.log(serializedInput.value)
+async function unserialize() {
+	try {
+		const route = 'http://localhost:10005/wp-json/wp-devtools/v1/unserialize';
+		const options = {
+			method: 'POST',
+			body: {
+				serializedInput: serializedInput.value,
+				outputMethod: selectedOutputMethod.value,
+			},
+			parseResponse: JSON.parse,
+		};
+
+		const response = await $fetch(route, options);
+
+		showOutput.value = true;
+		syntaxHighlighted.value = response.syntax_highlighted;
+	} catch (e) {
+		errorMessage.value = e.data.message;
+	}
 }
 </script>

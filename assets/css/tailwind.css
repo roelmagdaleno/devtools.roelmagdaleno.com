@@ -39,3 +39,13 @@ pre code.torchlight .summary-caret {
 .textarea-code {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
+
+.code-block-wrapper .copyButton {
+    --tw-text-opacity: 1;
+    color: rgb(147 147 158/var(--tw-text-opacity));
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+}

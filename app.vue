@@ -53,14 +53,14 @@
 		<!-- Static sidebar for desktop -->
 		<div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
 			<!-- Sidebar component, swap this element with another sidebar if you like -->
-			<div class="flex-1 flex flex-col min-h-0 bg-gray-800">
+			<div class="flex-1 flex flex-col min-h-0 bg-indigo-700">
 				<div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
 					<div class="px-4">
 						<span class="inline-block items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-blue-100 text-blue-800 font-bold">DevTools</span>
 						<span class="block font-bold text-white text-xl">by Roel Magdaleno</span>
 					</div>
 					<nav class="mt-5 flex-1 px-2 space-y-1">
-						<NuxtLink v-for="item in navigation" :key="item.name" :to="item.href" :class="['text-gray-300 hover:bg-gray-700 hover:text-white', 'group flex items-center px-2 py-2 text-sm font-medium rounded-md']">
+						<NuxtLink v-for="item in navigation" :key="item.name" :to="item.href" :class="['text-indigo-100 hover:bg-indigo-600', 'group flex items-center px-2 py-2 text-sm font-medium rounded-md']">
 							<component :is="item.icon" :class="[item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300', 'mr-3 flex-shrink-0 h-6 w-6']" aria-hidden="true" />
 							{{ item.name }}
 						</NuxtLink>
@@ -121,6 +121,6 @@ useHead({
 
 <style scoped>
 .router-link-active {
-	@apply bg-gray-900 text-white;
+	@apply bg-indigo-800 text-white;
 }
 </style>
