@@ -18,6 +18,12 @@ export default defineNuxtConfig({
         }
     },
 
+    runtimeConfig: {
+        public: {
+            apiBase: process.env.API_BASE,
+        }
+    },
+
     modules: [
         '@nuxtjs/tailwindcss'
     ],
