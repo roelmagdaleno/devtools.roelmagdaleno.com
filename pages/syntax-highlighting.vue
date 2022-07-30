@@ -1,10 +1,14 @@
 <template>
 	<div>
-		<p class="text-gray-500">Paste your code and copy the syntax highlighted output.</p>
+		<p class="text-gray-500">
+			Select your programming language and theme, then paste your code and copy the syntax highlighted output.
+		</p>
 
-		<p class="text-gray-500">Powered by <a href="https://torchlight.dev/" target="_blank" class="relative cursor-pointer font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">Torchlight</a>.</p>
+		<p class="text-gray-500">
+			Powered by <a href="https://torchlight.dev/" target="_blank">Torchlight</a>.
+		</p>
 
-		<div class="mt-8">
+		<div class="mt-8 mb-16">
 			<div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
 				<div class="sm:col-span-3">
 					<Select label="Language" :options="languages" v-model="language" />
@@ -14,7 +18,7 @@
 				</div>
 			</div>
 
-			<div class="mt-8">
+			<div class="mt-8 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
 				<div>
 					<label
 						for="code-input"
@@ -31,30 +35,32 @@
 							v-model.trim="codeInput"
 							class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md textarea-code"
 							autofocus
+							autocomplete="off"
+							spellcheck="false"
+							@input="maybeAutosize"
+							required
 						/>
 					</div>
-
-					<button @click="runApi">Highlight</button>
 				</div>
 
-				<div class="mt-4">
-					<label
-						for="code-input"
-						class="block text-sm font-medium text-gray-700"
-					>
-						Output
-					</label>
+				<div>
+					<p class="block text-sm font-medium text-gray-700">Output</p>
 
 					<div class="mt-1">
-						<textarea
-							rows="10"
-							name="code-input"
-							class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md textarea-code"
-							autofocus
-						/>
+						<pre class="mt-0"><code class="torchlight has-add-lines has-remove-lines has-diff-lines" style="background-color: #24292e; --theme-selection-background: #39414a;"><!-- Syntax highlighted by torchlight.dev --><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 1</span><span style="color: #E1E4E8;">&lt;?php</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 2</span><span style="color: #6A737D;">/**</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 3</span><span style="color: #6A737D;"> * Chunk the collection into chunks of the given size.</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 4</span><span style="color: #6A737D;"> *</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 5</span><span style="color: #6A737D;"> * </span><span style="color: #F97583;">@param</span><span style="color: #6A737D;"> </span><span style="color: #F97583;">int</span><span style="color: #6A737D;"> $size</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 6</span><span style="color: #6A737D;"> * </span><span style="color: #F97583;">@return</span><span style="color: #6A737D;"> </span><span style="color: #F97583;">static</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 7</span><span style="color: #6A737D;"> */</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 8</span><span style="color: #F97583;">public</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">function</span><span style="color: #E1E4E8;"> </span><span style="color: #B392F0;">chunk</span><span style="color: #E1E4E8;">($size)</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 9</span><span style="color: #E1E4E8;">{</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">10</span><span style="color: #E1E4E8;">    </span><span style="color: #F97583;">if</span><span style="color: #E1E4E8;"> ($size </span><span style="color: #F97583;">&lt;=</span><span style="color: #E1E4E8;"> </span><span style="color: #79B8FF;">0</span><span style="color: #E1E4E8;">) {</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">11</span><span style="color: #E1E4E8;">        </span><span style="color: #F97583;">return</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">new</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">static</span><span style="color: #E1E4E8;">;</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">12</span><span style="color: #E1E4E8;">    }</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">13</span>&nbsp;</div><div class="line line-remove line-has-background" style="background-color: #d73a4930"><span style="color:#fdaeb7; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> -</span><span style="color: #fdaeb7;">    $chunks </span><span style="color: #fdaeb7;">=</span><span style="color: #fdaeb7;"> </span><span style="color: #fdaeb7;">array</span><span style="color: #fdaeb7;">(); </span></div><div class="line line-add line-has-background" style="background-color: #28a74530"><span style="color:#85e89d; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> +</span><span style="color: #85e89d;">    $chunks </span><span style="color: #85e89d;">=</span><span style="color: #85e89d;"> []; </span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">16</span>&nbsp;</div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">17</span><span style="color: #E1E4E8;">    </span><span style="color: #F97583;">foreach</span><span style="color: #E1E4E8;"> (</span><span style="color: #79B8FF;">array_chunk</span><span style="color: #E1E4E8;">(</span><span style="color: #79B8FF;">$this</span><span style="color: #F97583;">-&gt;</span><span style="color: #E1E4E8;">items, $size, </span><span style="color: #79B8FF;">true</span><span style="color: #E1E4E8;">) </span><span style="color: #F97583;">as</span><span style="color: #E1E4E8;"> $chunk) {</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">18</span><span style="color: #E1E4E8;">        $chunks[] </span><span style="color: #F97583;">=</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">new</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">static</span><span style="color: #E1E4E8;">($chunk);</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">19</span><span style="color: #E1E4E8;">    }</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">20</span>&nbsp;</div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">21</span><span style="color: #E1E4E8;">    </span><span style="color: #F97583;">return</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">new</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">static</span><span style="color: #E1E4E8;">($chunks);</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">22</span><span style="color: #E1E4E8;">}</span></div></code></pre>
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<div class="actions mt-8 fixed bottom-0 bg-white w-full -mx-8 p-4">
+			<Button type="button" action="secondary" class="mr-4">
+				Clear
+			</Button>
+
+			<Button type="button" action="primary">
+				Syntax Highlight
+			</Button>
 		</div>
 	</div>
 </template>
@@ -62,6 +68,7 @@
 <script setup>
 import torchlight from '@torchlight-api/client/src/torchlight.js';
 import Block from '@torchlight-api/client/src/block.js';
+import autosize from 'autosize';
 
 useHead({ title: 'Syntax Highlighting' });
 
@@ -230,8 +237,8 @@ const themes = [
 	{ id: 'yellow-delight', name: 'Yellow Delight' },
 ];
 
-const language = ref(languages[0]);
-const theme = ref(themes[0]);
+const language = ref(languages[69]);
+const theme = ref(themes[7]);
 const codeInput = ref('');
 
 async function runApi() {
@@ -246,7 +253,9 @@ async function runApi() {
 
 	const block = new Block(config);
 	const highlightedBlock = await torchlight.highlight([block]);
+}
 
-	console.log(highlightedBlock)
+function maybeAutosize() {
+	autosize(document.querySelector('textarea'));
 }
 </script>

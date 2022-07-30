@@ -25,7 +25,7 @@
 			</div>
 			<div class="mt-4 flex items-center justify-between">
 				<div class="mr-8">
-					<Button type="submit" :loading="loading">Unserialize</Button>
+					<Button type="submit" action="primary" :loading="loading">Unserialize</Button>
 				</div>
 				<div class="flex items-center">
 					<label class="text-base font-medium text-gray-900 mr-4">Output:</label>
