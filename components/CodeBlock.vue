@@ -1,9 +1,9 @@
 <template>
 	<div class="relative code-block-wrapper">
-		<div v-html="syntaxHighlighted"></div>
+		<div class="syntax-highlighted" v-html="syntaxHighlighted"></div>
 		<div class="copyButton">
 			<Listbox as="div" v-model="copyOption">
-				<ListboxLabel class="sr-only"> Change published status </ListboxLabel>
+				<ListboxLabel class="sr-only">Change copy option</ListboxLabel>
 				<div class="relative">
 					<div class="inline-flex shadow-sm rounded-md divide-x divide-indigo-600">
 						<div class="relative z-0 inline-flex shadow-sm rounded-md divide-x divide-indigo-600">
@@ -18,7 +18,7 @@
 								<p class="ml-2.5 text-sm font-medium">{{ copyOptions[copyOption].title }}</p>
 							</div>
 							<ListboxButton class="relative inline-flex items-center bg-indigo-500 p-2 rounded-l-none rounded-r-md text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:z-10 focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
-								<span class="sr-only">Change copy method</span>
+								<span class="sr-only">Change copy option</span>
 								<ChevronDownIcon class="h-5 w-5 text-white" aria-hidden="true" />
 							</ListboxButton>
 						</div>
@@ -75,7 +75,7 @@ import {
 	ClipboardIcon,
 } from '@heroicons/vue/solid';
 
-defineProps({
+const props = defineProps({
 	syntaxHighlighted: String,
 	copyOption: {
 		type: String,
@@ -83,22 +83,40 @@ defineProps({
 	},
 });
 
+watch(() => props.copyOption, () => {
+	const clipboardTarget = document.querySelector('[data-clipboard-target="code.torchlight"]');
+	clipboardTarget.click();
+});
+
+const copied = ref(false);
 const copyOptions = {
 	code: { title: 'Code', description: 'Copy the code. Useful to paste right into your code.' },
 	html: { title: 'HTML', description: 'Copy the HTML. Useful to paste in any editor.' },
 	visual: { title: 'Visual', description: 'Copy the code with styles. Useful to paste into Google Docs or Gmail.' },
 };
 
-const copied = ref(false);
+const clipboard = new ClipboardJS('.clipboard-trigger', {
+	text: (trigger) => {
+		const copySelector = trigger.dataset.clipboardTarget;
+		const codeBlock = document.querySelector(copySelector);
 
-onMounted(() => {
-	new ClipboardJS('.clipboard-trigger').on('success', (element) => {
-		copied.value = true;
-		element.clearSelection();
+		if (props.copyOption === 'visual') {
+			return codeBlock.innerText;
+		}
 
-		setTimeout(() => {
-			copied.value = false;
-		}, 1500);
-	});
+		if (props.copyOption === 'html') {
+			return codeBlock.closest('.syntax-highlighted').innerHTML;
+		}
+
+		return codeBlock;
+	},
+}).on('success', (element) => {
+	copied.value = true;
+	element.clearSelection();
+	setTimeout(() => copied.value = false, 1500);
+});
+
+onUnmounted(() => {
+	clipboard.destroy();
 });
 </script>
