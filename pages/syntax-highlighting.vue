@@ -18,16 +18,53 @@
 				</div>
 			</div>
 
-			<div class="mt-8 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
-				<div>
-					<label
-						for="code-input"
-						class="block text-sm font-medium text-gray-700"
-					>
-						Code
+			<div class="options mt-4 flex items-center">
+				<div class="flex items-center mr-4">
+					<label for="line-numbers-start" class="block text-sm font-medium text-gray-700 mr-3">
+						Number of the first line:
 					</label>
+					<div class="mt-1">
+						<input type="number" id="line-numbers-start" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md w-20" v-model="lineNumbersStart" />
+					</div>
+				</div>
 
-					<div class="mt-4">
+				<div class="mt-1 flex">
+					<div class="mr-4">
+						<SwitchGroup as="div" class="flex items-center">
+							<Switch v-model="lineNumbers" :class="[lineNumbers ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500']">
+								<span aria-hidden="true" :class="[lineNumbers ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200']" />
+							</Switch>
+							<SwitchLabel as="span" class="ml-3">
+								<span class="text-sm font-medium text-gray-900">Line Numbers </span>
+							</SwitchLabel>
+						</SwitchGroup>
+					</div>
+
+					<div>
+						<SwitchGroup as="div" class="flex items-center">
+							<Switch v-model="diffIndicators" :class="[diffIndicators ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500']">
+								<span aria-hidden="true" :class="[diffIndicators ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200']" />
+							</Switch>
+							<SwitchLabel as="span" class="ml-3">
+								<span class="text-sm font-medium text-gray-900">Diff Indicator </span>
+								<span class="text-sm text-gray-500">(`+` / `-`)</span>
+							</SwitchLabel>
+						</SwitchGroup>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<div class="mt-8 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+					<div>
+						<label
+							for="code-input"
+							class="block text-sm font-medium text-gray-700"
+						>
+							Code
+						</label>
+
+						<div class="mt-4">
 						<textarea
 							rows="10"
 							name="code-input"
@@ -40,21 +77,22 @@
 							@input="maybeAutosize"
 							required
 						/>
+						</div>
 					</div>
-				</div>
 
-				<div>
-					<p class="block text-sm font-medium text-gray-700">Output</p>
+					<div>
+						<p class="block text-sm font-medium text-gray-700">Output</p>
 
-					<div class="mt-4">
-						<CodeBlock :syntaxHighlighted="syntaxHighlighted" />
+						<div class="mt-4">
+							<CodeBlock :syntaxHighlighted="syntaxHighlighted" />
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="flex mt-8 fixed bottom-0 bg-white w-full -mx-8 p-4">
-			<Button type="button" action="secondary" class="mr-4">
+			<Button type="button" action="secondary" class="mr-4" @click="codeInput = ''">
 				Clear
 			</Button>
 
@@ -69,6 +107,7 @@
 import autosize from 'autosize';
 import { defaultSyntaxHighlighted, defaultCodeInput } from '../assets/js/defaults.js';
 import { disableElements } from "../assets/js/disableElements";
+import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue';
 
 useHead({ title: 'Syntax Highlighting' });
 
@@ -244,6 +283,9 @@ const codeInput = ref(defaultCodeInput);
 const syntaxHighlighted = ref(defaultSyntaxHighlighted);
 const errorMessage = ref(false);
 const loading = ref(false);
+const lineNumbers = ref(true);
+const diffIndicators = ref(true);
+const lineNumbersStart = ref(1);
 
 onMounted(() => {
 	maybeAutosize();
@@ -263,6 +305,11 @@ async function syntaxHighlight() {
 				code: codeInput.value,
 				language: language.value.id,
 				theme: theme.value.id,
+				options: {
+					diffIndicators: diffIndicators.value,
+					lineNumbers: lineNumbers.value,
+					lineNumbersStart: lineNumbersStart.value,
+				},
 			},
 			parseResponse: JSON.parse,
 		};
