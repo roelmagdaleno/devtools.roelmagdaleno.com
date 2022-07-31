@@ -84,7 +84,10 @@
 						<p class="block text-sm font-medium text-gray-700">Output</p>
 
 						<div class="mt-4">
-							<CodeBlock :syntaxHighlighted="syntaxHighlighted" />
+							<CodeBlock
+								:syntaxHighlighted="syntaxHighlighted"
+								copyOption="html"
+							/>
 						</div>
 					</div>
 				</div>

@@ -1,38 +1,103 @@
 <template>
 	<div class="relative code-block-wrapper">
 		<div v-html="syntaxHighlighted"></div>
-		<button
-			type="button"
-			class="md:block hidden copyButton"
-			aria-label="Copy to Clipboard"
-			title="Copy to Clipboard"
-			data-clipboard-target="code.torchlight"
-		>
-			<svg class="fill-current h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path></svg>
-		</button>
+		<div class="copyButton">
+			<Listbox as="div" v-model="copyOption">
+				<ListboxLabel class="sr-only"> Change published status </ListboxLabel>
+				<div class="relative">
+					<div class="inline-flex shadow-sm rounded-md divide-x divide-indigo-600">
+						<div class="relative z-0 inline-flex shadow-sm rounded-md divide-x divide-indigo-600">
+							<div
+								class="relative inline-flex items-center bg-indigo-500 py-2 pl-3 pr-4 border border-transparent rounded-l-md shadow-sm text-white cursor-pointer clipboard-trigger"
+								data-clipboard-target="code.torchlight"
+							>
+								<Component
+									:is="copied ? ClipboardCheckIcon : ClipboardIcon"
+									class="h-5 w-5" aria-hidden="true"
+								></Component>
+								<p class="ml-2.5 text-sm font-medium">{{ copyOptions[copyOption].title }}</p>
+							</div>
+							<ListboxButton class="relative inline-flex items-center bg-indigo-500 p-2 rounded-l-none rounded-r-md text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:z-10 focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
+								<span class="sr-only">Change copy method</span>
+								<ChevronDownIcon class="h-5 w-5 text-white" aria-hidden="true" />
+							</ListboxButton>
+						</div>
+					</div>
+
+					<transition leave-active-class="transition ease-in duration-100" leave-from-class="opacity-100" leave-to-class="opacity-0">
+						<ListboxOptions class="origin-top-right absolute z-10 right-0 mt-2 w-72 rounded-md shadow-lg overflow-hidden bg-white divide-y divide-gray-200 ring-1 ring-black ring-opacity-5 focus:outline-none">
+							<ListboxOption
+								as="template"
+								v-for="(option, key) in copyOptions"
+								:key="option.title"
+								:value="key"
+								v-slot="{ active, selected }"
+							>
+								<li :class="[active ? 'text-white bg-indigo-500' : 'text-gray-900', 'cursor-default select-none relative p-4 text-sm']">
+									<div class="flex flex-col">
+										<div class="flex justify-between">
+											<p :class="selected ? 'font-semibold' : 'font-normal'">
+												{{ option.title }}
+											</p>
+											<span v-if="selected" :class="active ? 'text-white' : 'text-indigo-500'">
+												<CheckIcon class="h-5 w-5" aria-hidden="true" />
+											</span>
+										</div>
+										<p :class="[active ? 'text-indigo-200' : 'text-gray-500', 'mt-2']">
+											{{ option.description }}
+										</p>
+									</div>
+								</li>
+							</ListboxOption>
+						</ListboxOptions>
+					</transition>
+				</div>
+			</Listbox>
+		</div>
 	</div>
 </template>
 
 <script setup>
 import ClipboardJS from "clipboard/dist/clipboard";
 
+import {
+	Listbox,
+	ListboxButton,
+	ListboxLabel,
+	ListboxOption,
+	ListboxOptions,
+} from '@headlessui/vue';
+
+import {
+	CheckIcon,
+	ChevronDownIcon,
+	ClipboardCheckIcon,
+	ClipboardIcon,
+} from '@heroicons/vue/solid';
+
 defineProps({
 	syntaxHighlighted: String,
+	copyOption: {
+		type: String,
+		default: 'code'
+	},
 });
 
-const clipboardIcon = `<svg class="fill-current h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path></svg>`;
+const copyOptions = {
+	code: { title: 'Code', description: 'Copy the code. Useful to paste right into your code.' },
+	html: { title: 'HTML', description: 'Copy the HTML. Useful to paste in any editor.' },
+	visual: { title: 'Visual', description: 'Copy the code with styles. Useful to paste into Google Docs or Gmail.' },
+};
 
-const clipboardCopiedIcon = `<svg class="fill-current h-5 w-5" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`;
+const copied = ref(false);
 
 onMounted(() => {
-	new ClipboardJS('.copyButton').on('success', (element) => {
-		const clickedButton = element.trigger;
-
-		clickedButton.innerHTML = clipboardCopiedIcon;
+	new ClipboardJS('.clipboard-trigger').on('success', (element) => {
+		copied.value = true;
 		element.clearSelection();
 
 		setTimeout(() => {
-			clickedButton.innerHTML = clipboardIcon;
+			copied.value = false;
 		}, 1500);
 	});
 });
