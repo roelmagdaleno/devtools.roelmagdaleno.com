@@ -27,7 +27,7 @@
 						Code
 					</label>
 
-					<div class="mt-1">
+					<div class="mt-4">
 						<textarea
 							rows="10"
 							name="code-input"
@@ -46,19 +46,19 @@
 				<div>
 					<p class="block text-sm font-medium text-gray-700">Output</p>
 
-					<div class="mt-1">
-						<pre class="mt-0"><code class="torchlight has-add-lines has-remove-lines has-diff-lines" style="background-color: #24292e; --theme-selection-background: #39414a;"><!-- Syntax highlighted by torchlight.dev --><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 1</span><span style="color: #E1E4E8;">&lt;?php</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 2</span><span style="color: #6A737D;">/**</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 3</span><span style="color: #6A737D;"> * Chunk the collection into chunks of the given size.</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 4</span><span style="color: #6A737D;"> *</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 5</span><span style="color: #6A737D;"> * </span><span style="color: #F97583;">@param</span><span style="color: #6A737D;"> </span><span style="color: #F97583;">int</span><span style="color: #6A737D;"> $size</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 6</span><span style="color: #6A737D;"> * </span><span style="color: #F97583;">@return</span><span style="color: #6A737D;"> </span><span style="color: #F97583;">static</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 7</span><span style="color: #6A737D;"> */</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 8</span><span style="color: #F97583;">public</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">function</span><span style="color: #E1E4E8;"> </span><span style="color: #B392F0;">chunk</span><span style="color: #E1E4E8;">($size)</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> 9</span><span style="color: #E1E4E8;">{</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">10</span><span style="color: #E1E4E8;">    </span><span style="color: #F97583;">if</span><span style="color: #E1E4E8;"> ($size </span><span style="color: #F97583;">&lt;=</span><span style="color: #E1E4E8;"> </span><span style="color: #79B8FF;">0</span><span style="color: #E1E4E8;">) {</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">11</span><span style="color: #E1E4E8;">        </span><span style="color: #F97583;">return</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">new</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">static</span><span style="color: #E1E4E8;">;</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">12</span><span style="color: #E1E4E8;">    }</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">13</span>&nbsp;</div><div class="line line-remove line-has-background" style="background-color: #d73a4930"><span style="color:#fdaeb7; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> -</span><span style="color: #fdaeb7;">    $chunks </span><span style="color: #fdaeb7;">=</span><span style="color: #fdaeb7;"> </span><span style="color: #fdaeb7;">array</span><span style="color: #fdaeb7;">(); </span></div><div class="line line-add line-has-background" style="background-color: #28a74530"><span style="color:#85e89d; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number"> +</span><span style="color: #85e89d;">    $chunks </span><span style="color: #85e89d;">=</span><span style="color: #85e89d;"> []; </span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">16</span>&nbsp;</div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">17</span><span style="color: #E1E4E8;">    </span><span style="color: #F97583;">foreach</span><span style="color: #E1E4E8;"> (</span><span style="color: #79B8FF;">array_chunk</span><span style="color: #E1E4E8;">(</span><span style="color: #79B8FF;">$this</span><span style="color: #F97583;">-&gt;</span><span style="color: #E1E4E8;">items, $size, </span><span style="color: #79B8FF;">true</span><span style="color: #E1E4E8;">) </span><span style="color: #F97583;">as</span><span style="color: #E1E4E8;"> $chunk) {</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">18</span><span style="color: #E1E4E8;">        $chunks[] </span><span style="color: #F97583;">=</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">new</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">static</span><span style="color: #E1E4E8;">($chunk);</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">19</span><span style="color: #E1E4E8;">    }</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">20</span>&nbsp;</div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">21</span><span style="color: #E1E4E8;">    </span><span style="color: #F97583;">return</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">new</span><span style="color: #E1E4E8;"> </span><span style="color: #F97583;">static</span><span style="color: #E1E4E8;">($chunks);</span></div><div class="line"><span style="color:#444d56; text-align: right; -webkit-user-select: none; user-select: none;" class="line-number">22</span><span style="color: #E1E4E8;">}</span></div></code></pre>
+					<div class="mt-4">
+						<CodeBlock :syntaxHighlighted="syntaxHighlighted" />
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="actions mt-8 fixed bottom-0 bg-white w-full -mx-8 p-4">
+		<div class="flex mt-8 fixed bottom-0 bg-white w-full -mx-8 p-4">
 			<Button type="button" action="secondary" class="mr-4">
 				Clear
 			</Button>
 
-			<Button type="button" action="primary">
+			<Button type="button" action="primary" :loading="loading" @click="syntaxHighlight">
 				Syntax Highlight
 			</Button>
 		</div>
@@ -66,9 +66,9 @@
 </template>
 
 <script setup>
-import torchlight from '@torchlight-api/client/src/torchlight.js';
-import Block from '@torchlight-api/client/src/block.js';
 import autosize from 'autosize';
+import { defaultSyntaxHighlighted, defaultCodeInput } from '../assets/js/defaults.js';
+import { disableElements } from "../assets/js/disableElements";
 
 useHead({ title: 'Syntax Highlighting' });
 
@@ -237,25 +237,57 @@ const themes = [
 	{ id: 'yellow-delight', name: 'Yellow Delight' },
 ];
 
+const runtimeConfig = useRuntimeConfig();
 const language = ref(languages[69]);
 const theme = ref(themes[7]);
-const codeInput = ref('');
+const codeInput = ref(defaultCodeInput);
+const syntaxHighlighted = ref(defaultSyntaxHighlighted);
+const errorMessage = ref(false);
+const loading = ref(false);
 
-async function runApi() {
-	torchlight.init({ token: 'torch_CQY5yDkdrVDsoPujxN3Wn8Znd8r1XMVoEhCTT8z8' });
-	torchlight.logger.silence();
+onMounted(() => {
+	maybeAutosize();
+});
 
-	const config = {
-		code: document.querySelector('#code-input').value,
-		language: language.value,
-		theme: theme.value,
-	};
+async function syntaxHighlight() {
+	try {
+		errorMessage.value = false;
+		loading.value = true;
 
-	const block = new Block(config);
-	const highlightedBlock = await torchlight.highlight([block]);
+		toggleElements();
+
+		const route = `${ runtimeConfig.public.apiBase }/wp-json/wp-devtools/v1/syntax-highlighting`;
+		const options = {
+			method: 'POST',
+			body: {
+				code: codeInput.value,
+				language: language.value.id,
+				theme: theme.value.id,
+			},
+			parseResponse: JSON.parse,
+		};
+
+		const response = await $fetch(route, options);
+		syntaxHighlighted.value = response.syntax_highlighted;
+
+		loading.value = false;
+		toggleElements();
+	} catch (e) {
+		errorMessage.value = e.data.message;
+		loading.value = false;
+		toggleElements();
+	}
 }
 
 function maybeAutosize() {
-	autosize(document.querySelector('textarea'));
+	autosize(document.querySelector('textarea#code-input'));
+}
+
+function toggleElements() {
+	const formElements = [
+		document.querySelector('#code-input'),
+	];
+
+	disableElements(formElements, loading.value);
 }
 </script>
