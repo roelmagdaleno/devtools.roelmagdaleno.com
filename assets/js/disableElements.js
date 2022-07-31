@@ -3,8 +3,8 @@ export function disableElements(formElements, loading) {
 		return;
 	}
 
-	let attrFun = loading.value ? 'setAttribute' : 'removeAttribute';
-	let classFun = loading.value ? 'add' : 'remove';
+	let attrFun = loading ? 'setAttribute' : 'removeAttribute';
+	let classFun = loading ? 'add' : 'remove';
 
 	formElements.map((element) => {
 		element[attrFun]('disabled', 'disabled');
