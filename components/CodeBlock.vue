@@ -88,9 +88,11 @@ const props = defineProps({
 	},
 });
 
-watch(() => props.copyOption, () => {
+watch(() => props.copyOption, (newValue, oldValue) => {
 	const clipboardTarget = document.querySelector('[data-clipboard-target="code.torchlight"]');
 	clipboardTarget.click();
+
+	localStorage.syntaxHighlightingCopyOption = newValue;
 });
 
 const copied = ref(false);

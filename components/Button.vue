@@ -22,6 +22,6 @@ defineProps({
 
 const buttonActions = {
 	primary: 'shadow-sm text-white bg-indigo-600 hover:bg-indigo-700',
-	secondary: 'text-indigo-700 bg-indigo-100 hover:bg-indigo-200',
+	secondary: 'border-gray-300 shadow-sm text-gray-700 shadow-sm hover:bg-gray-50',
 };
 </script>

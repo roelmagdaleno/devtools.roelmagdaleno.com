@@ -87,7 +87,7 @@
 							<CodeBlock
 								:syntaxHighlighted="syntaxHighlighted"
 								:styles="styles"
-								copyOption="html"
+								:copyOption="getCopyOption()"
 							/>
 						</div>
 					</div>
@@ -342,5 +342,9 @@ function toggleElements() {
 	];
 
 	disableElements(formElements, loading.value);
+}
+
+function getCopyOption() {
+	return localStorage.syntaxHighlightingCopyOption || 'html';
 }
 </script>
