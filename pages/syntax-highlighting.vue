@@ -86,6 +86,7 @@
 						<div class="mt-4">
 							<CodeBlock
 								:syntaxHighlighted="syntaxHighlighted"
+								:styles="styles"
 								copyOption="html"
 							/>
 						</div>
@@ -289,6 +290,7 @@ const loading = ref(false);
 const lineNumbers = ref(true);
 const diffIndicators = ref(true);
 const lineNumbersStart = ref(1);
+const styles = ref('background-color: #24292e; --theme-selection-background: #39414a;');
 
 onMounted(() => {
 	maybeAutosize();
@@ -319,6 +321,7 @@ async function syntaxHighlight() {
 
 		const response = await $fetch(route, options);
 		syntaxHighlighted.value = response.syntax_highlighted;
+		styles.value = response.styles;
 
 		loading.value = false;
 		toggleElements();

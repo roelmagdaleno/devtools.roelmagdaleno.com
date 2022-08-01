@@ -59,6 +59,7 @@
 
 <script setup>
 import ClipboardJS from "clipboard/dist/clipboard";
+import copyVisual from '../assets/js/visualClipboard';
 
 import {
 	Listbox,
@@ -77,6 +78,10 @@ import {
 
 const props = defineProps({
 	syntaxHighlighted: String,
+	styles: {
+		type: String,
+		default: 'background-color: #24292e; --theme-selection-background: #39414a;'
+	},
 	copyOption: {
 		type: String,
 		default: 'code'
@@ -100,19 +105,19 @@ const clipboard = new ClipboardJS('.clipboard-trigger', {
 		const copySelector = trigger.dataset.clipboardTarget;
 		const codeBlock = document.querySelector(copySelector);
 
-		if (props.copyOption === 'visual') {
-			return codeBlock.innerText;
-		}
-
-		if (props.copyOption === 'html') {
-			return codeBlock.closest('.syntax-highlighted').innerHTML;
-		}
-
-		return codeBlock;
+		return props.copyOption === 'html'
+			? codeBlock.closest('.syntax-highlighted').innerHTML
+			: codeBlock;
 	},
 }).on('success', (element) => {
 	copied.value = true;
 	element.clearSelection();
+
+	if (props.copyOption === 'visual') {
+		const codeBlock = document.querySelector('.syntax-highlighted').innerHTML;
+		copyVisual(codeBlock.trim(), props.styles);
+	}
+
 	setTimeout(() => copied.value = false, 1500);
 });
 
