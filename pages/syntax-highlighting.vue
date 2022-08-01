@@ -5,7 +5,7 @@
 		</p>
 
 		<p class="text-gray-500">
-			Powered by <a href="https://torchlight.dev/" target="_blank">Torchlight</a>.
+			Powered by <a href="https://torchlight.dev/" class="link" target="_blank">Torchlight</a>.
 		</p>
 
 		<div class="mt-8 mb-16">
