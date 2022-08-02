@@ -18,7 +18,7 @@
 				</div>
 			</div>
 
-			<div class="options mt-4 flex items-center">
+			<div class="options mt-4 flex items-center justify-end">
 				<div class="flex items-center mr-4">
 					<label for="line-numbers-start" class="block text-sm font-medium text-gray-700 mr-3">
 						Number of the first line:
