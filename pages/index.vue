@@ -43,7 +43,7 @@ const actions = [
 	},
 	{
 		title: 'Syntax Highlighting',
-		description: 'Select your programming language and theme, then paste your code and copy the syntax highlighted output.',
+		description: 'Select your programming language and theme, paste your code and copy the syntax highlighted output. Powered by Torchlight.',
 		href: '/syntax-highlighting',
 		icon: CodeIcon,
 		iconForeground: 'text-purple-700',

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<p class="text-gray-500">
-			Select your programming language and theme, then paste your code and copy the syntax highlighted output.
+			Select your programming language and theme, paste your code and copy the syntax highlighted output.
 		</p>
 
 		<p class="text-gray-500">
@@ -66,7 +66,7 @@
 
 						<div class="mt-4">
 						<textarea
-							rows="10"
+							rows="25"
 							name="code-input"
 							id="code-input"
 							v-model.trim="codeInput"
@@ -74,7 +74,7 @@
 							autofocus
 							autocomplete="off"
 							spellcheck="false"
-							@input="maybeAutosize"
+							ref="textareaCodeInput"
 							required
 						/>
 						</div>
@@ -284,6 +284,7 @@ const runtimeConfig = useRuntimeConfig();
 const language = ref(languages[69]);
 const theme = ref(themes[7]);
 const codeInput = ref(defaultCodeInput);
+const textareaCodeInput = ref(null);
 const syntaxHighlighted = ref(defaultSyntaxHighlighted);
 const errorMessage = ref(false);
 const loading = ref(false);
@@ -293,7 +294,11 @@ const lineNumbersStart = ref(1);
 const styles = ref('background-color: #24292e; --theme-selection-background: #39414a;');
 
 onMounted(() => {
-	maybeAutosize();
+	autosize(textareaCodeInput.value);
+});
+
+watch(codeInput, () => {
+	autosize(textareaCodeInput.value);
 });
 
 async function syntaxHighlight() {
@@ -330,10 +335,6 @@ async function syntaxHighlight() {
 		loading.value = false;
 		toggleElements();
 	}
-}
-
-function maybeAutosize() {
-	autosize(document.querySelector('textarea#code-input'));
 }
 
 function toggleElements() {
