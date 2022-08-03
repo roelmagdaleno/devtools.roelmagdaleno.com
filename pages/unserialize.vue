@@ -64,7 +64,13 @@
 <script setup>
 import { disableElements } from "../assets/js/disableElements";
 
-useHead({ title: 'Unserialize' });
+useHead({
+	title: 'Unserialize',
+	meta: [
+		{ name: 'description', content: 'Unserialize PHP encoded data as JSON or Array.'},
+		{ name: 'keywords', content: 'Unserialize, PHP, JSON, Array' }
+	],
+});
 
 const runtimeConfig = useRuntimeConfig();
 const serializedInput = ref('a:2:{i:0;s:12:"Sample array";i:1;a:2:{i:0;s:5:"Apple";i:1;s:6:"Orange";}}');

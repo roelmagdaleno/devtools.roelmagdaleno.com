@@ -113,7 +113,13 @@ import { defaultSyntaxHighlighted, defaultCodeInput } from '../assets/js/default
 import { disableElements } from "../assets/js/disableElements";
 import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue';
 
-useHead({ title: 'Syntax Highlighting' });
+useHead({
+	title: 'Syntax Highlighting',
+	meta: [
+		{ name: 'description', content: 'Syntax highlight your code powered by Torchlight.'},
+		{ name: 'keywords', content: 'Syntax Highlighting, Torchlight' }
+	],
+});
 
 const languages = [
 	{ id: '(null) | txt | text | plaintext', name: 'Plaintext' },

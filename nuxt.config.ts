@@ -10,6 +10,7 @@ export default defineNuxtConfig({
                 class: 'h-full bg-gray-100'
             },
             link: [
+                { rel: 'preload', href: 'https://rsms.me/inter/inter.css', as: 'style' },
                 { rel: 'stylesheet', href: 'https://rsms.me/inter/inter.css' },
                 { rel: 'icon', type: 'image/x-icon', href: '/img/favicon.ico' }
             ],

@@ -16,6 +16,7 @@
     "@heroicons/vue": "^1.0.6",
     "@torchlight-api/client": "^0.0.4",
     "autosize": "^5.0.1",
-    "clipboard": "^2.0.11"
+    "clipboard": "^2.0.11",
+    "vue-gtag": "^2.0.1"
   }
 }
