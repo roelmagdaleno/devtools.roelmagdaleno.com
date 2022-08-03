@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<p class="text-gray-500">
-			Select your programming language and theme, paste your code and copy the syntax highlighted output.
+			Syntax highlight your source code by specifying the programming language and theme.
 		</p>
 
 		<p class="text-gray-500">
@@ -71,7 +71,6 @@
 							id="code-input"
 							v-model.trim="codeInput"
 							class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md textarea-code"
-							autofocus
 							autocomplete="off"
 							spellcheck="false"
 							ref="textareaCodeInput"
@@ -81,7 +80,10 @@
 					</div>
 
 					<div>
-						<p class="block text-sm font-medium text-gray-700">Output</p>
+						<p class="text-sm font-medium text-gray-700 inline-flex">
+							<span>Output</span>
+							<svg xmlns="http://www.w3.org/2000/svg" id="copyFAQ" class="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" /></svg>
+						</p>
 
 						<div class="mt-4">
 							<CodeBlock
@@ -108,6 +110,8 @@
 </template>
 
 <script setup>
+import tippy from 'tippy.js';
+import 'tippy.js/dist/tippy.css';
 import autosize from 'autosize';
 import { defaultSyntaxHighlighted, defaultCodeInput } from '../assets/js/defaults.js';
 import { disableElements } from "../assets/js/disableElements";
@@ -116,7 +120,7 @@ import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue';
 useHead({
 	title: 'Syntax Highlighting',
 	meta: [
-		{ name: 'description', content: 'Syntax highlight your code powered by Torchlight.'},
+		{ name: 'description', content: 'Syntax highlight your source code by specifying the programming language and theme. Powered by Torchlight.'},
 		{ name: 'keywords', content: 'Syntax Highlighting, Torchlight' }
 	],
 });
@@ -301,6 +305,10 @@ const styles = ref('background-color: #24292e; --theme-selection-background: #39
 
 onMounted(() => {
 	autosize(textareaCodeInput.value);
+
+	tippy('#copyFAQ', {
+		content: 'El buen'
+	});
 });
 
 watch(codeInput, () => {

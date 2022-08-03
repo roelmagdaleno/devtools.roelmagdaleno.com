@@ -35,7 +35,7 @@ import {
 const actions = [
 	{
 		title: 'Unserialize',
-		description: 'Paste your serialized data, select your output and unserialize it.',
+		description: 'Unserialize is a PHP function that takes a serialized data and convert it to a readable data, like JSON or an Array.',
 		href: '/unserialize',
 		icon: DocumentTextIcon,
 		iconForeground: 'text-teal-700',
@@ -43,7 +43,7 @@ const actions = [
 	},
 	{
 		title: 'Syntax Highlighting',
-		description: 'Select your programming language and theme, paste your code and copy the syntax highlighted output. Powered by Torchlight.',
+		description: 'Syntax highlight your source code by specifying the programming language and theme. Powered by Torchlight.',
 		href: '/syntax-highlighting',
 		icon: CodeIcon,
 		iconForeground: 'text-purple-700',

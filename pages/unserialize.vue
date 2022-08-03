@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<p class="text-gray-500">Paste your serialized data, select your output and unserialize it.</p>
+		<p class="text-gray-500">
+			Unserialize is a PHP function that takes a serialized data and convert it to a readable data, like JSON or an Array.
+		</p>
 
 		<form method="POST" @submit.prevent="unserialize" class="mt-8">
 			<div>
@@ -18,7 +20,6 @@
 						id="serialized-input"
 						v-model.trim="serializedInput"
 						class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md textarea-code"
-						autofocus
 						required
 					/>
 				</div>
@@ -67,7 +68,7 @@ import { disableElements } from "../assets/js/disableElements";
 useHead({
 	title: 'Unserialize',
 	meta: [
-		{ name: 'description', content: 'Unserialize PHP encoded data as JSON or Array.'},
+		{ name: 'description', content: 'Unserialize is a PHP function that takes a serialized data and convert it to a readable data, like JSON or an Array.'},
 		{ name: 'keywords', content: 'Unserialize, PHP, JSON, Array' }
 	],
 });
