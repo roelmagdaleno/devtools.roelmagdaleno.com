@@ -18,7 +18,7 @@
 				</div>
 			</div>
 
-			<div class="options mt-4 flex items-center justify-end">
+			<div class="options mt-4 md:flex items-center justify-end">
 				<div class="flex items-center mr-4">
 					<label for="line-numbers-start" class="block text-sm font-medium text-gray-700 mr-3">
 						Number of the first line:
@@ -27,9 +27,8 @@
 						<input type="number" id="line-numbers-start" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md w-20" v-model="lineNumbersStart" />
 					</div>
 				</div>
-
-				<div class="mt-1 flex">
-					<div class="mr-4">
+				<div class="mt-4 md:mt-1 md:flex">
+					<div class="mb-4 md:mr-4 md:mb-0">
 						<SwitchGroup as="div" class="flex items-center">
 							<Switch v-model="lineNumbers" :class="[lineNumbers ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500']">
 								<span aria-hidden="true" :class="[lineNumbers ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200']" />
@@ -65,17 +64,17 @@
 						</label>
 
 						<div class="mt-4">
-						<textarea
-							rows="25"
-							name="code-input"
-							id="code-input"
-							v-model.trim="codeInput"
-							class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md textarea-code"
-							autocomplete="off"
-							spellcheck="false"
-							ref="textareaCodeInput"
-							required
-						/>
+							<textarea
+								rows="25"
+								name="code-input"
+								id="code-input"
+								v-model.trim="codeInput"
+								class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md textarea-code"
+								autocomplete="off"
+								spellcheck="false"
+								ref="textareaCodeInput"
+								required
+							/>
 						</div>
 					</div>
 
@@ -97,7 +96,7 @@
 			</div>
 		</div>
 
-		<div class="flex mt-8 fixed bottom-0 bg-white w-full -mx-8 p-4">
+		<div class="flex mt-8 fixed bottom-0 bg-white w-full left-0 md:left-auto md:-mx-8 p-4">
 			<Button type="button" action="secondary" class="mr-4" @click="codeInput = ''">
 				Clear
 			</Button>

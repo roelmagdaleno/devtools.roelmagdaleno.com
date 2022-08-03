@@ -8,7 +8,7 @@
 
 				<div class="fixed inset-0 flex z-40">
 					<TransitionChild as="template" enter="transition ease-in-out duration-300 transform" enter-from="-translate-x-full" enter-to="translate-x-0" leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0" leave-to="-translate-x-full">
-						<DialogPanel class="relative flex-1 flex flex-col max-w-xs w-full bg-gray-800">
+						<DialogPanel class="relative flex-1 flex flex-col max-w-xs w-full bg-indigo-800">
 							<TransitionChild as="template" enter="ease-in-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in-out duration-300" leave-from="opacity-100" leave-to="opacity-0">
 								<div class="absolute top-0 right-0 -mr-12 pt-2">
 									<button type="button" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" @click="sidebarOpen = false">
@@ -19,27 +19,17 @@
 							</TransitionChild>
 							<div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
 								<div class="flex-shrink-0 flex items-center px-4">
-									<img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg" alt="Workflow" />
+									<div>
+										<span class="inline-block items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-blue-100 text-blue-800 font-bold">DevTools</span>
+										<span class="block font-bold text-white text-xl">by Roel Magdaleno</span>
+									</div>
 								</div>
 								<nav class="mt-5 px-2 space-y-1">
-									<a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'group flex items-center px-2 py-2 text-base font-medium rounded-md']">
-										<component :is="item.icon" :class="[item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300', 'mr-4 flex-shrink-0 h-6 w-6']" aria-hidden="true" />
+									<NuxtLink v-for="item in navigation" :key="item.name" :to="item.href" :class="['text-indigo-100 hover:bg-indigo-600', 'group flex items-center px-2 py-2 text-sm font-medium rounded-md']" @click="sidebarOpen = false">
+										<component :is="item.icon" :class="[item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300', 'mr-3 flex-shrink-0 h-6 w-6']" aria-hidden="true" />
 										{{ item.name }}
-									</a>
+									</NuxtLink>
 								</nav>
-							</div>
-							<div class="flex-shrink-0 flex bg-gray-700 p-4">
-								<a href="#" class="flex-shrink-0 group block">
-									<div class="flex items-center">
-										<div>
-											<img class="inline-block h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-										</div>
-										<div class="ml-3">
-											<p class="text-base font-medium text-white">Tom Cook</p>
-											<p class="text-sm font-medium text-gray-400 group-hover:text-gray-300">View profile</p>
-										</div>
-									</div>
-								</a>
 							</div>
 						</DialogPanel>
 					</TransitionChild>

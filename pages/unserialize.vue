@@ -24,13 +24,13 @@
 					/>
 				</div>
 			</div>
-			<div class="mt-4 flex items-center justify-between">
-				<div class="mr-8">
+			<div class="mt-4 md:flex items-center justify-between">
+				<div class="md:mr-8">
 					<Button type="submit" action="primary" :loading="loading">Unserialize</Button>
 				</div>
-				<div class="flex items-center">
+				<div class="mt-4 md:mt-0 md:flex items-center">
 					<label class="text-base font-medium text-gray-900 mr-4">Output:</label>
-					<fieldset>
+					<fieldset class="mt-4 md:mt-0">
 						<legend class="sr-only">Output method</legend>
 						<div class="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-5">
 							<div
