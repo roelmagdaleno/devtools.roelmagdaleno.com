@@ -11,10 +11,66 @@
 		<div class="mt-8 mb-16">
 			<div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
 				<div class="sm:col-span-3">
-					<Select label="Language" :options="languages" v-model="language" />
+					<Listbox as="div" v-model="language">
+						<ListboxLabel class="block text-sm font-medium text-gray-700">
+							Language
+						</ListboxLabel>
+						<div class="mt-1 relative">
+							<ListboxButton class="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+								<span class="block truncate">{{ language.name }}</span>
+								<span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+									<SelectorIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+								</span>
+							</ListboxButton>
+
+							<transition leave-active-class="transition ease-in duration-100" leave-from-class="opacity-100" leave-to-class="opacity-0">
+								<ListboxOptions class="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+									<ListboxOption as="template" v-for="option in languages" :key="option.id" :value="option" v-slot="{ active, selected }">
+										<li :class="[active ? 'text-white bg-indigo-600' : 'text-gray-900', 'cursor-default select-none relative py-2 pl-3 pr-9']">
+							<span :class="[selected ? 'font-semibold' : 'font-normal', 'block truncate']">
+								{{ option.name }}
+							</span>
+
+											<span v-if="selected" :class="[active ? 'text-white' : 'text-indigo-600', 'absolute inset-y-0 right-0 flex items-center pr-4']">
+								<CheckIcon class="h-5 w-5" aria-hidden="true" />
+							</span>
+										</li>
+									</ListboxOption>
+								</ListboxOptions>
+							</transition>
+						</div>
+					</Listbox>
 				</div>
 				<div class="sm:col-span-3">
-					<Select label="Theme" :options="themes" v-model="theme" />
+					<Listbox as="div" v-model="theme">
+						<ListboxLabel class="block text-sm font-medium text-gray-700">
+							Theme
+						</ListboxLabel>
+						<div class="mt-1 relative">
+							<ListboxButton class="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+								<span class="block truncate">{{ theme.name }}</span>
+								<span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+									<SelectorIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+								</span>
+							</ListboxButton>
+
+							<transition leave-active-class="transition ease-in duration-100" leave-from-class="opacity-100" leave-to-class="opacity-0">
+								<ListboxOptions class="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+									<ListboxOption as="template" v-for="option in themes" :key="option.id" :value="option" v-slot="{ active, selected }">
+										<li :class="[active ? 'text-white bg-indigo-600' : 'text-gray-900', 'cursor-default select-none relative py-2 pl-3 pr-9']">
+							<span :class="[selected ? 'font-semibold' : 'font-normal', 'block truncate']">
+								{{ option.name }}
+							</span>
+
+											<span v-if="selected" :class="[active ? 'text-white' : 'text-indigo-600', 'absolute inset-y-0 right-0 flex items-center pr-4']">
+								<CheckIcon class="h-5 w-5" aria-hidden="true" />
+							</span>
+										</li>
+									</ListboxOption>
+								</ListboxOptions>
+							</transition>
+						</div>
+					</Listbox>
 				</div>
 			</div>
 
@@ -114,7 +170,17 @@ import 'tippy.js/dist/tippy.css';
 import autosize from 'autosize';
 import { defaultSyntaxHighlighted, defaultCodeInput } from '../assets/js/defaults.js';
 import { disableElements } from "../assets/js/disableElements";
-import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue';
+import {
+	Switch,
+	SwitchGroup,
+	SwitchLabel,
+	Listbox,
+	ListboxButton,
+	ListboxLabel,
+	ListboxOption,
+	ListboxOptions
+} from '@headlessui/vue';
+import { CheckIcon, SelectorIcon } from '@heroicons/vue/solid';
 
 useHead({
 	title: 'Syntax Highlighting',
