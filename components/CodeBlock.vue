@@ -98,7 +98,7 @@ watch(() => props.copyOption, (newValue, oldValue) => {
 const copied = ref(false);
 const copyOptions = {
 	code: { title: 'Code', description: 'Copy the code. Useful to paste right into your code.' },
-	html: { title: 'HTML', description: 'Copy the HTML. Useful to paste in any editor.' },
+	html: { title: 'HTML', description: 'Copy the HTML. Useful to paste in any website. You must include Torchlight CSS.' },
 	visual: { title: 'Visual', description: 'Copy the code with styles. Useful to paste into Google Docs or Gmail.' },
 };
 
