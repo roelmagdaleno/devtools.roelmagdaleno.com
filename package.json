@@ -1,23 +1,26 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview"
-  },
-  "devDependencies": {
-    "@nuxtjs/tailwindcss": "^5.3.1",
-    "@tailwindcss/forms": "^0.5.2",
-    "nuxt": "3.0.0-rc.6"
-  },
-  "dependencies": {
-    "@headlessui/vue": "^1.6.7",
-    "@heroicons/vue": "^1.0.6",
-    "@torchlight-api/client": "^0.0.4",
-    "autosize": "^5.0.1",
-    "clipboard": "^2.0.11",
-    "tippy.js": "^6.3.7",
-    "vue-gtag": "^2.0.1"
-  }
+    "private": true,
+    "version": "0.1.1",
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview"
+    },
+    "devDependencies": {
+        "@nuxtjs/tailwindcss": "^5.3.1",
+        "@tailwindcss/forms": "^0.5.2",
+        "nuxt": "3.0.0-rc.6"
+    },
+    "dependencies": {
+        "@headlessui/vue": "^1.6.7",
+        "@heroicons/vue": "^1.0.6",
+        "@torchlight-api/client": "^0.0.4",
+        "autosize": "^5.0.1",
+        "clipboard": "^2.0.11",
+        "dom-to-image": "^2.6.0",
+        "luxon": "^3.0.1",
+        "tippy.js": "^6.3.7",
+        "vue-gtag": "^2.0.1"
+    }
 }

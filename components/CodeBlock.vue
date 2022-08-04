@@ -60,6 +60,8 @@
 <script setup>
 import ClipboardJS from "clipboard/dist/clipboard";
 import copyVisual from '../assets/js/visualClipboard';
+import domtoimage from 'dom-to-image';
+import { DateTime } from 'luxon';
 
 import {
 	Listbox,
@@ -100,6 +102,7 @@ const copyOptions = {
 	code: { title: 'Code', description: 'Copy the code. Useful to paste right into your code.' },
 	html: { title: 'HTML', description: 'Copy the HTML. Useful to paste in any website. You must include Torchlight CSS.' },
 	visual: { title: 'Visual', description: 'Copy the code with styles. Useful to paste into Google Docs or Gmail.' },
+	screenshot: { title: 'Screenshot', description: 'Export the output as screenshot.' },
 };
 
 const clipboard = new ClipboardJS('.clipboard-trigger', {
@@ -120,8 +123,25 @@ const clipboard = new ClipboardJS('.clipboard-trigger', {
 		copyVisual(codeBlock.trim(), props.styles);
 	}
 
+	if (props.copyOption === 'screenshot') {
+		takeScreenshot();
+	}
+
 	setTimeout(() => copied.value = false, 1500);
 });
+
+function takeScreenshot() {
+	domtoimage.toJpeg(document.querySelector('code.torchlight'), {})
+		.then((dataUrl) => {
+			const date = DateTime.now().toFormat('yyyy-MM-dd-HH-mm-ss');
+			const link = document.createElement('a');
+
+			link.download = `${date}__syntax-highlighting-powered-by-torchlight.jpeg`;
+			link.href = dataUrl;
+			link.click();
+			link.remove();
+		});
+}
 
 onUnmounted(() => {
 	clipboard.destroy();
