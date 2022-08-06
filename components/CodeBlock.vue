@@ -2,7 +2,7 @@
 	<div class="relative code-block-wrapper">
 		<div class="syntax-highlighted" v-html="syntaxHighlighted"></div>
 		<div class="copyButton">
-			<Listbox as="div" v-model="copyOption">
+			<Listbox as="div" v-model="selectedCopyOption">
 				<ListboxLabel class="sr-only">Change copy option</ListboxLabel>
 				<div class="relative">
 					<div class="inline-flex shadow-sm rounded-md divide-x divide-indigo-600">
@@ -15,7 +15,7 @@
 									:is="copied ? ClipboardCheckIcon : ClipboardIcon"
 									class="h-5 w-5" aria-hidden="true"
 								></Component>
-								<p class="ml-2.5 text-sm font-medium">{{ copyOptions[copyOption].title }}</p>
+								<p class="ml-2.5 text-sm font-medium">{{ copyOptions[selectedCopyOption].title }}</p>
 							</div>
 							<ListboxButton class="relative inline-flex items-center bg-indigo-500 p-2 rounded-l-none rounded-r-md text-sm font-medium text-white hover:bg-indigo-600 focus:outline-none focus:z-10 focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
 								<span class="sr-only">Change copy option</span>
@@ -90,13 +90,7 @@ const props = defineProps({
 	},
 });
 
-watch(() => props.copyOption, (newValue, oldValue) => {
-	const clipboardTarget = document.querySelector('[data-clipboard-target="code.torchlight"]');
-	clipboardTarget.click();
-
-	localStorage.syntaxHighlightingCopyOption = newValue;
-});
-
+const selectedCopyOption = ref(props.copyOption);
 const copied = ref(false);
 const copyOptions = {
 	code: { title: 'Code', description: 'Copy the code. Useful to paste right into your code.' },
@@ -105,12 +99,19 @@ const copyOptions = {
 	screenshot: { title: 'Screenshot', description: 'Export the output as screenshot.' },
 };
 
+watch(selectedCopyOption, (newValue, oldValue) => {
+	const clipboardTarget = document.querySelector('[data-clipboard-target="code.torchlight"]');
+	clipboardTarget.click();
+
+	localStorage.syntaxHighlightingCopyOption = newValue;
+});
+
 const clipboard = new ClipboardJS('.clipboard-trigger', {
 	text: (trigger) => {
 		const copySelector = trigger.dataset.clipboardTarget;
 		const codeBlock = document.querySelector(copySelector);
 
-		return props.copyOption === 'html'
+		return selectedCopyOption.value === 'html'
 			? codeBlock.closest('.syntax-highlighted').innerHTML
 			: codeBlock;
 	},
@@ -118,12 +119,12 @@ const clipboard = new ClipboardJS('.clipboard-trigger', {
 	copied.value = true;
 	element.clearSelection();
 
-	if (props.copyOption === 'visual') {
+	if (selectedCopyOption.value === 'visual') {
 		const codeBlock = document.querySelector('.syntax-highlighted').innerHTML;
 		copyVisual(codeBlock.trim(), props.styles);
 	}
 
-	if (props.copyOption === 'screenshot') {
+	if (selectedCopyOption.value === 'screenshot') {
 		takeScreenshot();
 	}
 
