@@ -152,8 +152,8 @@
 			</div>
 		</div>
 
-		<div class="flex mt-8 fixed bottom-0 bg-white w-full left-0 md:left-auto md:-mx-8 p-4">
-			<Button type="button" action="secondary" class="mr-4" @click="codeInput = ''">
+		<div class="flex sticky bg-white w-full p-4 rounded-lg shadow bottom-4">
+			<Button type="button" action="secondary" class="mr-4" @click="clearInput">
 				Clear
 			</Button>
 
@@ -441,5 +441,10 @@ function toggleElements() {
 
 function getCopyOption() {
 	return localStorage.syntaxHighlightingCopyOption || 'html';
+}
+
+function clearInput() {
+	codeInput.value = '';
+	textareaCodeInput.value.focus();
 }
 </script>
