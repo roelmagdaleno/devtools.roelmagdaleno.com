@@ -186,7 +186,19 @@ useHead({
 	title: 'Syntax Highlighting',
 	meta: [
 		{ name: 'description', content: 'Syntax highlight your source code by specifying the programming language and theme. Powered by Torchlight.'},
-		{ name: 'keywords', content: 'Syntax Highlighting, Torchlight' }
+		{ name: 'keywords', content: 'Syntax Highlighting, Torchlight' },
+		{ property: 'og:type', content: 'website' },
+		{ property: 'og:title', content: 'Syntax Highlighting - DevTools by Roel Magdaleno' },
+		{ property: 'og:image', content: 'https://devtools.roelmagdaleno.com/img/syntax-highlighting.png' },
+		{ property: 'og:url', content: 'https://devtools.roelmagdaleno.com/syntax-highlighting/' },
+		{ property: 'og:description', content: 'Syntax highlight your source code by specifying the programming language and theme. Powered by Torchlight.' },
+		{ property: 'twitter:title', content: 'Syntax Highlighting - DevTools by Roel Magdaleno' },
+		{ property: 'twitter:description', content: 'Syntax highlight your source code by specifying the programming language and theme. Powered by Torchlight.' },
+		{ property: 'twitter:card', content: 'summary_large_image' },
+		{ property: 'twitter:image', content: 'https://devtools.roelmagdaleno.com/img/syntax-highlighting.png' },
+		{ property: 'twitter:site', content: '@roelmagdaleno' },
+		{ property: 'twitter:creator', content: '@roelmagdaleno' },
+		{ property: 'twitter:url', content: 'https://devtools.roelmagdaleno.com/syntax-highlighting/' },
 	],
 });
 
