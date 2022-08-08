@@ -90,6 +90,8 @@ const props = defineProps({
 	},
 });
 
+let clipboard;
+
 const selectedCopyOption = ref(props.copyOption);
 const copied = ref(false);
 const copyOptions = {
@@ -102,33 +104,33 @@ const copyOptions = {
 watch(selectedCopyOption, (newValue, oldValue) => {
 	const clipboardTarget = document.querySelector('[data-clipboard-target="code.torchlight"]');
 	clipboardTarget.click();
-
-	localStorage.syntaxHighlightingCopyOption = newValue;
 });
 
-const clipboard = new ClipboardJS('.clipboard-trigger', {
-	text: (trigger) => {
-		const copySelector = trigger.dataset.clipboardTarget;
-		const codeBlock = document.querySelector(copySelector);
+onMounted(() => {
+	clipboard = new ClipboardJS('.clipboard-trigger', {
+		text: (trigger) => {
+			const copySelector = trigger.dataset.clipboardTarget;
+			const codeBlock = document.querySelector(copySelector);
 
-		return selectedCopyOption.value === 'html'
-			? codeBlock.closest('.syntax-highlighted').innerHTML
-			: codeBlock;
-	},
-}).on('success', (element) => {
-	copied.value = true;
-	element.clearSelection();
+			return selectedCopyOption.value === 'html'
+				? codeBlock.closest('.syntax-highlighted').innerHTML
+				: codeBlock;
+		},
+	}).on('success', (element) => {
+		copied.value = true;
+		element.clearSelection();
 
-	if (selectedCopyOption.value === 'visual') {
-		const codeBlock = document.querySelector('.syntax-highlighted').innerHTML;
-		copyVisual(codeBlock.trim(), props.styles);
-	}
+		if (selectedCopyOption.value === 'visual') {
+			const codeBlock = document.querySelector('.syntax-highlighted').innerHTML;
+			copyVisual(codeBlock.trim(), props.styles);
+		}
 
-	if (selectedCopyOption.value === 'screenshot') {
-		takeScreenshot();
-	}
+		if (selectedCopyOption.value === 'screenshot') {
+			takeScreenshot();
+		}
 
-	setTimeout(() => copied.value = false, 1500);
+		setTimeout(() => copied.value = false, 1500);
+	});
 });
 
 function takeScreenshot() {
